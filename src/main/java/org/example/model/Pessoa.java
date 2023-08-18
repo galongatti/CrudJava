@@ -1,10 +1,13 @@
-package org.example;
+package org.example.model;
 
 public class Pessoa {
 
-    public String nome;
-    public int idade;
-    public TipoPessoa tipoPessoa;
+    private int id;
+    private String nome;
+    private int idade;
+    private TipoPessoa tipoPessoa;
+
+    private String documento;
     public Pessoa(){}
 
     public void setNome(String nome){
@@ -13,14 +16,14 @@ public class Pessoa {
     public String getNome(){
         return this.nome;
     }
-    public void setNome(int idade){
+    public void setIdade(int idade){
         this.idade = idade;
     }
     public int getIdade(){
         return this.idade;
     }
 
-    public void setNome(TipoPessoa tipo){
+    public void setTipoPessoa(TipoPessoa tipo){
         this.tipoPessoa = tipo;
     }
     public TipoPessoa getTipoPessoa(){
@@ -28,8 +31,25 @@ public class Pessoa {
     }
 
 
+    public String getDocumento() {
+        return documento;
+    }
 
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    @Override
+    public String toString() {
+        return new String("Nome: %s , Idade %d , Documento: %s, Tipo: %s".formatted(this.nome, this.idade,this.documento,
+                                                                                    this.tipoPessoa));
+    }
 }

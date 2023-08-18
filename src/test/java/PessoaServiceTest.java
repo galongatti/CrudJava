@@ -1,78 +1,76 @@
+import org.example.exceptions.PessoaException;
 import org.example.model.Pessoa;
 import org.example.model.TipoPessoa;
-import org.example.service.CadastroPessoaService;
-import org.junit.jupiter.api.Assertions;
+import org.example.service.PessoaService;
 import org.junit.jupiter.api.Test;
 
-public class CadastroPessoaServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class PessoaServiceTest {
 
     @Test
     public void verificarNomePessoa(){
-        CadastroPessoaService service = new CadastroPessoaService();
+
+        PessoaService service = new PessoaService();
         Pessoa pessoa = new Pessoa();
-        pessoa.setNome("Gabriel");
+        pessoa.setNome("");
         pessoa.setIdade(18);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
         pessoa.setDocumento("46142094833");
 
-        boolean nomeValido = service.verificarNomeVazio(pessoa);
-        Assertions.assertEquals(false, nomeValido);
+        try {
+            service.verificarNomePreenchido(pessoa);
+            fail();
+        }catch (PessoaException ex){
+            assertEquals("Nome não pode ser vazio", ex.getMessage());
+        }
     }
 
     @Test
     public void verificarMaioridade(){
-        CadastroPessoaService service = new CadastroPessoaService();
+        PessoaService service = new PessoaService();
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Gabriel");
-        pessoa.setIdade(18);
+        pessoa.setIdade(17);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
         pessoa.setDocumento("46142094833");
 
-        boolean maioridadeOk = service.verificarMaioridade(pessoa);
-        Assertions.assertEquals(true, maioridadeOk);
+        try {
+            service.verificarMaioridade(pessoa);
+            fail();
+        }catch (PessoaException ex){
+            assertEquals("Pessoa deve ser ter mais de 18 anos", ex.getMessage());
+        }
     }
     @Test
-    public void verificarDocumentoPessoaFisica(){
-        CadastroPessoaService service = new CadastroPessoaService();
+    public void verificarDocumentoPessoaFisica() {
+
+        PessoaService service = new PessoaService();
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Gabriel");
         pessoa.setIdade(18);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46142094833");
+        pessoa.setDocumento("46242094833");
 
-        boolean verificarDocumento = service.verificarDocumento(pessoa);
-        Assertions.assertEquals(true, verificarDocumento);
+        try {
+            service.verificarDocumento(pessoa);
+            fail();
+        }catch (PessoaException ex){
+            assertEquals("Documento inválido", ex.getMessage());
+        }
     }
 
 
     @Test
     public void cadastrarPessoaFisica(){
 
-        CadastroPessoaService service = new CadastroPessoaService();
+        PessoaService service = new PessoaService();
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Gabriel");
-        pessoa.setIdade(18);
+        pessoa.setIdade(17);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46142094833");
+        pessoa.setDocumento("46142494833");
 
-
-        boolean nomeValido = service.verificarNomeVazio(pessoa);
-        Assertions.assertEquals(false, nomeValido);
-
-        boolean maioridadeOk = service.verificarMaioridade(pessoa);
-        Assertions.assertEquals(true, maioridadeOk);
-
-        boolean verificarDocumento = service.verificarDocumento(pessoa);
-        Assertions.assertEquals(true, verificarDocumento);
-
+        assertThrows(PessoaException.class, () -> service.cadastrarPessoa(pessoa));
     }
-
-
-
-
-
-
-
-
-
 }

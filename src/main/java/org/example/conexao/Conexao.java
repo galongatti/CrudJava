@@ -1,24 +1,23 @@
 package org.example.conexao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Conexao {
 
-    String databaseUrl = "jdbc:postgresql://localhost/CrudJava";
-    String usuario = "postgres";
-    String senha = "123456789";
-    String driverName = "org.postgresql.Driver";
-    private Connection conn;
+    private String databaseUrl = "jdbc:postgresql://localhost/CrudJava";
+    private String usuario = "postgres";
+    private String senha = "123456789";
+    private String driverName = "org.postgresql.Driver";
+    public Connection conn;
 
     public Conexao(){}
 
-    public void getConexao(){
+    public void abrirConexao(){
 
         try {
             Class.forName(driverName).newInstance();
             this.conn = DriverManager.getConnection(databaseUrl, usuario, senha);
+            this.conn.setAutoCommit(true);
         }
         catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -43,8 +42,11 @@ public class Conexao {
         }
     }
 
+    public int executarCreateUpdate(PreparedStatement query) throws SQLException {
+        return query.executeUpdate();
+    }
 
-
-
-
+    public ResultSet executarConsulta(PreparedStatement query) throws SQLException{
+        return query.executeQuery();
+    }
 }
