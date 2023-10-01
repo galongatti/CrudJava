@@ -16,7 +16,7 @@ public class PessoaServiceTest {
         pessoa.setNome("");
         pessoa.setIdade(18);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46142094833");
+        pessoa.setDocumento("999999999");
 
         try {
             service.verificarNomePreenchido(pessoa);
