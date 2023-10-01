@@ -33,7 +33,7 @@ public class PessoaServiceTest {
         pessoa.setNome("Gabriel");
         pessoa.setIdade(17);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46142094833");
+        pessoa.setDocumento("999999999");
 
         try {
             service.verificarMaioridade(pessoa);
@@ -50,7 +50,7 @@ public class PessoaServiceTest {
         pessoa.setNome("Gabriel");
         pessoa.setIdade(18);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46242094833");
+        pessoa.setDocumento("99999999");
 
         try {
             service.verificarDocumento(pessoa);
@@ -69,7 +69,7 @@ public class PessoaServiceTest {
         pessoa.setNome("Gabriel");
         pessoa.setIdade(17);
         pessoa.setTipoPessoa(TipoPessoa.FISICA);
-        pessoa.setDocumento("46142494833");
+        pessoa.setDocumento("9999999999");
 
         assertThrows(PessoaException.class, () -> service.cadastrarPessoa(pessoa));
     }
